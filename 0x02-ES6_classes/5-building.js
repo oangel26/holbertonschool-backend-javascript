@@ -1,22 +1,13 @@
-function evacuationWarningMessage() {
-  return new Error('Class extending Building must override evacuationWarningMessage');
-}
-
-let swap = 0;
-let maxSqft = 0;
 export default class Building {
   constructor(sqft) {
+    if (this.constructor !== Building && !this.evacuationWarningMessage) {
+      throw Error('Class extending Building must override evacuationWarningMessage');
+    }
+
     if (typeof sqft !== 'number') {
       throw TypeError('sqft must be number');
-    } else if (swap === 1 && maxSqft < sqft) {
-      return evacuationWarningMessage();
-    } else {
-      this._sqft = sqft;
-      if (swap === 0) {
-        maxSqft = this._sqft;
-        swap = 1;
-      }
     }
+    this._sqft = sqft;
   }
 
   get sqft() {
@@ -26,10 +17,7 @@ export default class Building {
   set sqft(sqft) {
     if (typeof sqft !== 'number') {
       throw TypeError('sqft must be number');
-    } else if (swap === 1 && maxSqft < sqft) {
-      return evacuationWarningMessage();
-    } else {
-      this._sqft = sqft;
     }
+    this._sqft = sqft;
   }
 }
