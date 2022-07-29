@@ -26,6 +26,8 @@ export default class Building {
   set sqft(sqft) {
     if (typeof sqft !== 'number') {
       throw TypeError('sqft must be number');
+    } else if (swap === 1 && maxSqft < sqft) {
+      return evacuationWarningMessage();
     } else {
       this._sqft = sqft;
     }
