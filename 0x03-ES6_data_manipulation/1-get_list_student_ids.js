@@ -1,8 +1,13 @@
 export default function getListStudentIds(array) {
   const lista = [];
   if (Array.isArray(array)) {
-    array.forEach((item) => lista.push(item.id));
-    return lista;
+    const myMap = new Map();
+    for (const item of array) {
+      myMap.set(item.id);
+    }
+    for (const key of myMap.keys()) {
+      lista.push(key);
+    }
   }
-  return [];
+  return lista;
 }
